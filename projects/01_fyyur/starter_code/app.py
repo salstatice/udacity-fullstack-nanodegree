@@ -241,11 +241,11 @@ def create_venue_submission():
     state = request.form['state']
     address = request.form['address']
     phone = request.form['phone']
-    image_link = request.form['image_link']
     genres = request.form['genres']
+    image_link = request.form['image_link']
     facebook_link = request.form['facebook_link']
 
-    new_venue = Venue(name=name, city=city, state=state, address=address, phone=phone, image_link=image_link, facebook_link=facebook_link)
+    new_venue = Venue(name=name, city=city, state=state, address=address, phone=phone, genres=genres image_link=image_link, facebook_link=facebook_link)
     db.session.add(new_venue)
     db.session.commit()
     # on successful db insert, flash success
