@@ -11,7 +11,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 import logging
 from logging import Formatter, FileHandler
-from flask_wtf import Form
+from flask_wtf import FlaskForm
 from forms import *
 #----------------------------------------------------------------------------#
 # App Config.
