@@ -301,9 +301,9 @@ def create_venue_submission():
   # TODO: modify data to be the data object returned from db insertion
   try:
     name = request.form['name']
-    city = request.form['city']
+    city = request.form['city'].title()
     state = request.form['state']
-    address = request.form['address']
+    address = request.form['address'].title()
     phone = request.form['phone']
     genres = request.form.getlist('genres')
     image_link = request.form['image_link']
@@ -566,7 +566,7 @@ def create_artist_submission():
   # TODO: modify data to be the data object returned from db insertion
   try:
     name = request.form['name']
-    city = request.form['city']
+    city = request.form['city'].title()
     state = request.form['state']
     phone = request.form['phone']
     genres = request.form.getlist('genres')
