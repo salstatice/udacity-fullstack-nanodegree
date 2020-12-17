@@ -9,7 +9,7 @@ from wtforms.validators import DataRequired, AnyOf, URL, Regexp, Optional
 
 class ShowForm(FlaskForm):
     artist_id = StringField(
-        'artist_id'
+        'artist_id', 
     )
     venue_id = StringField(
         'venue_id'
