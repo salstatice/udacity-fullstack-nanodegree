@@ -152,6 +152,8 @@ def search_venues():
   # TODO: implement search on artists with partial string search. Ensure it is case-insensitive.
   # seach for Hop should return "The Musical Hop".
   # search for "Music" should return "The Musical Hop" and "Park Square Live Music & Coffee"
+
+  
   response={
     "count": 1,
     "data": [{
@@ -160,30 +162,28 @@ def search_venues():
       "num_upcoming_shows": 0,
     }]
   }
-  return render_template('pages/search_venues.html', results=response, search_term=request.form.get('search_term', ''))
+  return render_template('pages/search_venues.html', results=response, search_term=request.form.get('search_term'))
 
 @app.route('/venues/<int:venue_id>')
 def show_venue(venue_id):
   # shows the venue page with the given venue_id
   # TODO: replace with real venue data from the venues table, using venue_id
   venue = Venue.query.filter_by(id=venue_id).first()
-  shows_list = Show.query.filter_by(venue_id=venue_id).all()
   past_shows_list=[]
   upcoming_shows_list=[]
-  for show in shows_list:
-    artist = Artist.query.filter_by(id=show.artist_id).first()
+  for show in venue.shows:
     if show.start_time < datetime.now():
       past_shows_list.append({
-        "artist_id": artist.id,
-        "artist_name": artist.name,
-        "artist_image_link": artist.image_link,
+        "artist_id": show.artist.id,
+        "artist_name": show.artist.name,
+        "artist_image_link": show.artist.image_link,
         "start_time": str(show.start_time)
       })
     else:
       upcoming_shows_list.append({
-        "artist_id": artist.id,
-        "artist_name": artist.name,
-        "artist_image_link": artist.image_link,
+        "artist_id": show.artist.id,
+        "artist_name": show.artist.name,
+        "artist_image_link": show.artist.image_link,
         "start_time": str(show.start_time)
       })
   venue.past_shows = past_shows_list
