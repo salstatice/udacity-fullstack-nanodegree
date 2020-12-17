@@ -12,6 +12,7 @@ from flask_migrate import Migrate
 import logging
 from logging import Formatter, FileHandler
 from flask_wtf import FlaskForm
+from datetime import datetime
 from forms import *
 #----------------------------------------------------------------------------#
 # App Config.
@@ -164,6 +165,30 @@ def search_venues():
 def show_venue(venue_id):
   # shows the venue page with the given venue_id
   # TODO: replace with real venue data from the venues table, using venue_id
+  venue = Venue.query.filter_by(id=venue_id).first()
+  shows_list = Show.query.filter_by(venue_id=venue_id).all()
+  past_shows_list=[]
+  upcoming_shows_list=[]
+  for show in shows_list:
+    artist = Artist.query.filter_by(id=show.artist_id).first()
+    if show.start_time < datetime.now():
+      past_shows_list.append({
+        "artist_id": artist.id,
+        "artist_name": artist.name,
+        "artist_image_link": artist.image_link,
+        "start_time": str(show.start_time)
+      })
+    else:
+      upcoming_shows_list.append({
+        "artist_id": artist.id,
+        "artist_name": artist.name,
+        "artist_image_link": artist.image_link,
+        "start_time": str(show.start_time)
+      })
+  venue.past_shows = past_shows_list
+  venue.past_shows_count = len(past_shows_list)
+  venue.upcoming_shows = upcoming_shows_list
+  venue.upcoming_shows_count = len(upcoming_shows_list)
   data1={
     "id": 1,
     "name": "The Musical Hop",
@@ -241,8 +266,8 @@ def show_venue(venue_id):
     "past_shows_count": 1,
     "upcoming_shows_count": 1,
   }
-  data = list(filter(lambda d: d['id'] == venue_id, [data1, data2, data3]))[0]
-  return render_template('pages/show_venue.html', venue=data)
+  #data = list(filter(lambda d: d['id'] == venue_id, [data1, data2, data3]))[0]
+  return render_template('pages/show_venue.html', venue=venue)
 
 #  Create Venue
 #  ----------------------------------------------------------------
