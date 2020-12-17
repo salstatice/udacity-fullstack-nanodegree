@@ -400,23 +400,21 @@ def show_artist(artist_id):
   genre_list= re.split(r'[\"\{\}\,]',''.join(artist.genres))
   # to remove empty item in genre_list
   artist.genres=[i for i in genre_list if i]
-  shows_list = Show.query.filter_by(artist_id=artist_id).all()
   past_shows_list=[]
   upcoming_shows_list=[]
-  for show in shows_list:
-    venue = Venue.query.filter_by(id=show.venue_id).first()
+  for show in artist.shows:
     if show.start_time < datetime.now():
       past_shows_list.append({
-        "venue_id": venue.id,
-        "venue_name": venue.name,
-        "venue_image_link": venue.image_link,
+        "venue_id": show.venue.id,
+        "venue_name": show.venue.name,
+        "venue_image_link": show.venue.image_link,
         "start_time": str(show.start_time)
       })
     else:
       upcoming_shows_list.append({
-        "venue_id": venue.id,
-        "venue_name": venue.name,
-        "venue_image_link": venue.image_link,
+        "venue_id": show.venue.id,
+        "venue_name": show.venue.name,
+        "venue_image_link": show.venue.image_link,
         "start_time": str(show.start_time)
       })
   artist.past_shows = past_shows_list
@@ -640,14 +638,14 @@ def shows():
   data2=[]
   shows = Show.query.order_by('start_time').all()
   for show in shows:
-    venue = Venue.query.filter_by(id=show.venue_id).first()
-    artist = Artist.query.filter_by(id=show.artist_id).first()
+    #venue = Venue.query.filter_by(id=show.venue_id).first()
+    #artist = Artist.query.filter_by(id=show.artist_id).first()
     data2.append({
-      "venue_id": venue.id,
-      "venue_name": venue.name,
-      "artist_id": artist.id,
-      "artist_name": artist.name,
-      "artist_image_link": artist.image_link,
+      "venue_id": show.venue.id,
+      "venue_name": show.venue.name,
+      "artist_id": show.artist.id,
+      "artist_name": show.artist.name,
+      "artist_image_link": show.artist.image_link,
       "start_time": str(show.start_time)
     })
   return render_template('pages/shows.html', shows=data2)
