@@ -5,6 +5,8 @@
 import json
 import dateutil.parser
 import babel
+from datetime import datetime
+import re
 from flask import Flask, render_template, request, Response, flash, redirect, url_for
 from flask_moment import Moment
 from flask_sqlalchemy import SQLAlchemy
@@ -12,7 +14,6 @@ from flask_migrate import Migrate
 import logging
 from logging import Formatter, FileHandler
 from flask_wtf import FlaskForm
-from datetime import datetime
 from forms import *
 #----------------------------------------------------------------------------#
 # App Config.
@@ -363,6 +364,34 @@ def search_artists():
 def show_artist(artist_id):
   # shows the venue page with the given venue_id
   # TODO: replace with real venue data from the venues table, using venue_id
+  artist = Artist.query.filter_by(id=artist_id).first()
+  # the query return artist.genres as a list of characters e.g.: ['{','J','A','Z','Z','}']
+  genre_list= re.split(r'[\"\{\}\,]',''.join(artist.genres))
+  # to remove empty item in genre_list
+  artist.genres=[i for i in genre_list if i]
+  shows_list = Show.query.filter_by(artist_id=artist_id).all()
+  past_shows_list=[]
+  upcoming_shows_list=[]
+  for show in shows_list:
+    venue = Venue.query.filter_by(id=show.venue_id).first()
+    if show.start_time < datetime.now():
+      past_shows_list.append({
+        "venue_id": venue.id,
+        "venue_name": venue.name,
+        "venue_image_link": venue.image_link,
+        "start_time": str(show.start_time)
+      })
+    else:
+      upcoming_shows_list.append({
+        "venue_id": venue.id,
+        "venue_name": venue.name,
+        "venue_image_link": venue.image_link,
+        "start_time": str(show.start_time)
+      })
+  artist.past_shows = past_shows_list
+  artist.past_shows_count = len(past_shows_list)
+  artist.upcoming_shows = upcoming_shows_list
+  artist.upcoming_shows_count = len(upcoming_shows_list)
   data1={
     "id": 4,
     "name": "Guns N Petals",
@@ -434,8 +463,8 @@ def show_artist(artist_id):
     "past_shows_count": 0,
     "upcoming_shows_count": 3,
   }
-  data = list(filter(lambda d: d['id'] == artist_id, [data1, data2, data3]))[0]
-  return render_template('pages/show_artist.html', artist=data)
+  #data = list(filter(lambda d: d['id'] == artist_id, [data1, data2, data3]))[0]
+  return render_template('pages/show_artist.html', artist=artist)
 
 #  Update
 #  ----------------------------------------------------------------
