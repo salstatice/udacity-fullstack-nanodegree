@@ -153,7 +153,22 @@ def search_venues():
   # seach for Hop should return "The Musical Hop".
   # search for "Music" should return "The Musical Hop" and "Park Square Live Music & Coffee"
 
+  search_string = '%' + request.form.get('search_term') + '%'
+  venues = Venue.query.filter(Venue.name.ilike(search_string))
+  venue_list=[]
+  for venue in venues:
+    num_upcoming_show = Show.query.filter(Show.venue_id==venue.id).filter(Show.start_time>=datetime.now()).count()
+    venue_list.append({
+      "id": venue.id,
+      "name": venue.name,
+      "num_upcoming_shows": num_upcoming_show
+    })
   
+  response2={
+    "count": len(venue_list),
+    "data": venue_list
+  }
+
   response={
     "count": 1,
     "data": [{
@@ -162,7 +177,7 @@ def search_venues():
       "num_upcoming_shows": 0,
     }]
   }
-  return render_template('pages/search_venues.html', results=response, search_term=request.form.get('search_term'))
+  return render_template('pages/search_venues.html', results=response2, search_term=request.form.get('search_term'))
 
 @app.route('/venues/<int:venue_id>')
 def show_venue(venue_id):
@@ -354,6 +369,21 @@ def search_artists():
   # TODO: implement search on artists with partial string search. Ensure it is case-insensitive.
   # seach for "A" should return "Guns N Petals", "Matt Quevado", and "The Wild Sax Band".
   # search for "band" should return "The Wild Sax Band".
+  search_string = '%' + request.form.get('search_term') + '%'
+  artists = Artist.query.filter(Artist.name.ilike(search_string))
+  artist_list=[]
+  for artist in artists:
+    num_upcoming_show = Show.query.filter(Show.artist_id==artist.id).filter(Show.start_time>=datetime.now()).count()
+    artist_list.append({
+      "id": artist.id,
+      "name": artist.name,
+      "num_upcoming_shows": num_upcoming_show
+    })
+  
+  response2={
+    "count": len(artist_list),
+    "data": artist_list
+  }
   response={
     "count": 1,
     "data": [{
@@ -362,7 +392,7 @@ def search_artists():
       "num_upcoming_shows": 0,
     }]
   }
-  return render_template('pages/search_artists.html', results=response, search_term=request.form.get('search_term', ''))
+  return render_template('pages/search_artists.html', results=response2, search_term=request.form.get('search_term', ''))
 
 @app.route('/artists/<int:artist_id>')
 def show_artist(artist_id):
