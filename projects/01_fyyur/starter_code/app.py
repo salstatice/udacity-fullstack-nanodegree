@@ -310,7 +310,14 @@ def artists():
     "id": 6,
     "name": "The Wild Sax Band",
   }]
-  return render_template('pages/artists.html', artists=data)
+  data2=[]
+  artists = Artist.query.order_by('name').all()
+  for artist in artists:
+    data2.append({
+      "id": artist.id,
+      "name": artist.name
+    })
+  return render_template('pages/artists.html', artists=data2)
 
 @app.route('/artists/search', methods=['POST'])
 def search_artists():
