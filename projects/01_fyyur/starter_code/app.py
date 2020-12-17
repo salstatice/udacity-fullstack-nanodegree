@@ -128,7 +128,22 @@ def venues():
       "num_upcoming_shows": 0,
     }]
   }]
-  return render_template('pages/venues.html', areas=data);
+  data2=[]
+  cities = Venue.query.distinct(Venue.city, Venue.state).order_by('state').all()
+  for city in cities:
+    venues_list=[]
+    venues = Venue.query.filter_by(city=city.city, state=city.state).order_by('id').all()
+    for venue in venues:
+      venues_list.append({
+        "id": venue.id,
+        "name": venue.name
+      })
+    data2.append({
+      "city": city.city,
+      "state": city.state,
+      "venues": venues_list
+    })
+  return render_template('pages/venues.html', areas=data2)
 
 @app.route('/venues/search', methods=['POST'])
 def search_venues():
