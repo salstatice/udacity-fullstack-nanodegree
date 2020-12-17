@@ -242,7 +242,6 @@ def create_venue_submission():
   # TODO: insert form data as a new Venue record in the db, instead
   # TODO: modify data to be the data object returned from db insertion
   try:
-    data = request.form
     name = request.form['name']
     city = request.form['city']
     state = request.form['state']
@@ -250,10 +249,15 @@ def create_venue_submission():
     phone = request.form['phone']
     genres = request.form.getlist('genres')
     image_link = request.form['image_link']
+    website = request.form['website']
     facebook_link = request.form['facebook_link']
-    print(genres)
-
-    new_venue = Venue(name=name, city=city, state=state, address=address, phone=phone, genres=genres, image_link=image_link, facebook_link=facebook_link)
+    if request.form.get('seeking_talent') is None:
+      seeking_talent = False
+    else:
+      seeking_talent = True
+    seeking_description = request.form['seeking_description']
+    
+    new_venue = Venue(name=name, city=city, state=state, address=address, phone=phone, genres=genres, image_link=image_link, website=website, facebook_link=facebook_link, seeking_talent=seeking_talent, seeking_description=seeking_description)
     db.session.add(new_venue)
     db.session.commit()
     # on successful db insert, flash success
