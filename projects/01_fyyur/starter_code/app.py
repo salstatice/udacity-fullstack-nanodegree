@@ -169,6 +169,10 @@ def show_venue(venue_id):
   # shows the venue page with the given venue_id
   # TODO: replace with real venue data from the venues table, using venue_id
   venue = Venue.query.filter_by(id=venue_id).first()
+  # the query return venue.genres as a list of characters e.g.: ['{','J','A','Z','Z','}']
+  genre_list= re.split(r'[\"\{\}\,]',''.join(venue.genres))
+  # to remove empty item in genre_list
+  venue.genres=[i for i in genre_list if i]
   past_shows_list=[]
   upcoming_shows_list=[]
   for show in venue.shows:
