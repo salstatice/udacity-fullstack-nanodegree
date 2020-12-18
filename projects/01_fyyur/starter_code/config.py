@@ -10,10 +10,12 @@ DEBUG = True
 
 
 # TODO IMPLEMENT DATABASE URL
-dialect = 'postgresql'
-username = ''
-password = ''
-host = 'localhost'
-port = '5432'
-database = ''
-SQLALCHEMY_DATABASE_URI = f'{dialect}://{username}:{password}@{host}:{port}/{database}'
+# dialect = 'postgresql'
+# username = ''
+# password = ''
+# host = 'localhost'
+# port = '5432'
+# database = ''
+# SQLALCHEMY_DATABASE_URI = f'{dialect}://{username}:{password}@{host}:{port}/{database}'
+
+SQLALCHEMY_DATABASE_URI = 'postgresql://postgres@localhost:5432/fyyur'
