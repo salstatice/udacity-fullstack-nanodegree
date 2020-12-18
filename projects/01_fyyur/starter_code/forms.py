@@ -1,11 +1,12 @@
 from datetime import datetime
+import re
 from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, SelectMultipleField, DateTimeField, BooleanField, TextAreaField, IntegerField
-from wtforms.validators import DataRequired, AnyOf, URL, Regexp, Optional
+from wtforms.validators import DataRequired, AnyOf, URL, Regexp, Optional, ValidationError
 
-# def validate_phone(form, field):
-#     if not Regexp(r'^[\d\-\+]+$'):
-#         raise ValidationError("Invalid phone number.")
+def check_phone_number(form, field):
+    if re.search(r'^(\(\d{3}\).?|\d{3}\-?)[\d]{3}[\-]?[\d]{4}$', field.data) is None:
+        raise ValidationError("Invalid phone number.")
 
 class ShowForm(FlaskForm):
     artist_id = StringField(
@@ -87,7 +88,7 @@ class VenueForm(FlaskForm):
         'address', validators=[DataRequired()]
     )
     phone = StringField(
-        'phone'
+        'phone', validators=[check_phone_number]
     )
     genres = SelectMultipleField(
         # TODO implement enum restriction
@@ -195,7 +196,7 @@ class ArtistForm(FlaskForm):
     )
     phone = StringField(
         # TODO implement validation logic for state
-        'phone'
+        'phone', validators=[check_phone_number]
     )
     genres = SelectMultipleField(
         # TODO implement enum restriction
@@ -223,14 +224,14 @@ class ArtistForm(FlaskForm):
         ]
     )
     image_link = StringField(
-        'image_link'
+        'image_link', validator=[Optional(), URL()]
     )
     website = StringField(
-        'website'
+        'website', validators=[Optional(), URL()]
     )
     facebook_link = StringField(
         # TODO implement enum restriction
-        'facebook_link', validators=[URL()]
+        'facebook_link', validators=[Optional(), URL()]
     )
     seeking_venue = BooleanField(
         'seeking_venue'
