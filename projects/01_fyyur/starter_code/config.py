@@ -18,4 +18,4 @@ DEBUG = True
 # database = ''
 # SQLALCHEMY_DATABASE_URI = f'{dialect}://{username}:{password}@{host}:{port}/{database}'
 
-SQLALCHEMY_DATABASE_URI = 'postgresql://postgres@localhost:5432/fyyur'
+SQLALCHEMY_DATABASE_URI = 'postgresql://postgres@localhost:5432/newfyyur'
