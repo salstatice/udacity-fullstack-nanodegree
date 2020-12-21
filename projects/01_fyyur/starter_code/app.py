@@ -383,7 +383,7 @@ def show_artist(artist_id):
   artist.past_shows = past_shows_list
   artist.past_shows_count = len(past_shows_list)
   artist.upcoming_shows = upcoming_shows_list
-  artist.upcoming_shows_count = len(upcoming_shows_list)
+  artist.upcoming_shows_count = db.session.query(Show).join(Artist).filter(Artist.id==artist_id).filter(Show.start_time>=datetime.now()).count()
   
   return render_template('pages/show_artist.html', artist=artist)
 
@@ -594,6 +594,7 @@ if __name__ == '__main__':
     app.run()
 
 # Or specify port manually:
+
 '''
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
