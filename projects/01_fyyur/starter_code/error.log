@@ -1,1 +1,444 @@
 
+2020-12-21 13:16:27,940 INFO: errors [in app.py:711]
+2020-12-21 13:16:39,387 ERROR: Exception on /venues [GET] [in C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py:1891]
+Traceback (most recent call last):
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\util\_collections.py", line 1020, in __call__
+    return self.registry[key]
+KeyError: 20188
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "app.py", line 137, in venues
+    cities = Venue.query.distinct(Venue.city, Venue.state).order_by('state').all()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask_sqlalchemy\__init__.py", line 514, in __get__
+    return type.query_class(mapper, session=self.sa.session())
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\orm\scoping.py", line 78, in __call__
+    return self.registry()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\util\_collections.py", line 1022, in __call__
+    return self.registry.setdefault(key, self.createfunc())
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\orm\session.py", line 3300, in __call__
+    return self.class_(**local_kw)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask_sqlalchemy\__init__.py", line 137, in __init__
+    track_modifications = app.config['SQLALCHEMY_TRACK_MODIFICATIONS']
+KeyError: 'SQLALCHEMY_TRACK_MODIFICATIONS'
+2020-12-21 13:16:41,721 ERROR: Exception on /venues [GET] [in C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py:1891]
+Traceback (most recent call last):
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\util\_collections.py", line 1020, in __call__
+    return self.registry[key]
+KeyError: 11108
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "app.py", line 137, in venues
+    cities = Venue.query.distinct(Venue.city, Venue.state).order_by('state').all()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask_sqlalchemy\__init__.py", line 514, in __get__
+    return type.query_class(mapper, session=self.sa.session())
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\orm\scoping.py", line 78, in __call__
+    return self.registry()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\util\_collections.py", line 1022, in __call__
+    return self.registry.setdefault(key, self.createfunc())
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\orm\session.py", line 3300, in __call__
+    return self.class_(**local_kw)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask_sqlalchemy\__init__.py", line 137, in __init__
+    track_modifications = app.config['SQLALCHEMY_TRACK_MODIFICATIONS']
+KeyError: 'SQLALCHEMY_TRACK_MODIFICATIONS'
+2020-12-21 13:16:42,982 ERROR: Exception on /artists [GET] [in C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py:1891]
+Traceback (most recent call last):
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\util\_collections.py", line 1020, in __call__
+    return self.registry[key]
+KeyError: 20368
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "app.py", line 364, in artists
+    artists = Artist.query.order_by('name').all()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask_sqlalchemy\__init__.py", line 514, in __get__
+    return type.query_class(mapper, session=self.sa.session())
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\orm\scoping.py", line 78, in __call__
+    return self.registry()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\util\_collections.py", line 1022, in __call__
+    return self.registry.setdefault(key, self.createfunc())
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\orm\session.py", line 3300, in __call__
+    return self.class_(**local_kw)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask_sqlalchemy\__init__.py", line 137, in __init__
+    track_modifications = app.config['SQLALCHEMY_TRACK_MODIFICATIONS']
+KeyError: 'SQLALCHEMY_TRACK_MODIFICATIONS'
+2020-12-21 13:16:43,738 ERROR: Exception on /venues [GET] [in C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py:1891]
+Traceback (most recent call last):
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\util\_collections.py", line 1020, in __call__
+    return self.registry[key]
+KeyError: 20100
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "app.py", line 137, in venues
+    cities = Venue.query.distinct(Venue.city, Venue.state).order_by('state').all()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask_sqlalchemy\__init__.py", line 514, in __get__
+    return type.query_class(mapper, session=self.sa.session())
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\orm\scoping.py", line 78, in __call__
+    return self.registry()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\util\_collections.py", line 1022, in __call__
+    return self.registry.setdefault(key, self.createfunc())
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\orm\session.py", line 3300, in __call__
+    return self.class_(**local_kw)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask_sqlalchemy\__init__.py", line 137, in __init__
+    track_modifications = app.config['SQLALCHEMY_TRACK_MODIFICATIONS']
+KeyError: 'SQLALCHEMY_TRACK_MODIFICATIONS'
+2020-12-21 13:16:45,898 ERROR: Exception on /venues [GET] [in C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py:1891]
+Traceback (most recent call last):
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\util\_collections.py", line 1020, in __call__
+    return self.registry[key]
+KeyError: 18520
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "app.py", line 137, in venues
+    cities = Venue.query.distinct(Venue.city, Venue.state).order_by('state').all()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask_sqlalchemy\__init__.py", line 514, in __get__
+    return type.query_class(mapper, session=self.sa.session())
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\orm\scoping.py", line 78, in __call__
+    return self.registry()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\util\_collections.py", line 1022, in __call__
+    return self.registry.setdefault(key, self.createfunc())
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\orm\session.py", line 3300, in __call__
+    return self.class_(**local_kw)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask_sqlalchemy\__init__.py", line 137, in __init__
+    track_modifications = app.config['SQLALCHEMY_TRACK_MODIFICATIONS']
+KeyError: 'SQLALCHEMY_TRACK_MODIFICATIONS'
+2020-12-21 13:16:46,911 ERROR: Exception on /artists [GET] [in C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py:1891]
+Traceback (most recent call last):
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\util\_collections.py", line 1020, in __call__
+    return self.registry[key]
+KeyError: 19992
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "app.py", line 364, in artists
+    artists = Artist.query.order_by('name').all()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask_sqlalchemy\__init__.py", line 514, in __get__
+    return type.query_class(mapper, session=self.sa.session())
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\orm\scoping.py", line 78, in __call__
+    return self.registry()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\util\_collections.py", line 1022, in __call__
+    return self.registry.setdefault(key, self.createfunc())
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\orm\session.py", line 3300, in __call__
+    return self.class_(**local_kw)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask_sqlalchemy\__init__.py", line 137, in __init__
+    track_modifications = app.config['SQLALCHEMY_TRACK_MODIFICATIONS']
+KeyError: 'SQLALCHEMY_TRACK_MODIFICATIONS'
+2020-12-21 13:16:48,247 ERROR: Exception on /shows [GET] [in C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py:1891]
+Traceback (most recent call last):
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\util\_collections.py", line 1020, in __call__
+    return self.registry[key]
+KeyError: 19608
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "app.py", line 652, in shows
+    shows = Show.query.order_by('start_time').all()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask_sqlalchemy\__init__.py", line 514, in __get__
+    return type.query_class(mapper, session=self.sa.session())
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\orm\scoping.py", line 78, in __call__
+    return self.registry()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\util\_collections.py", line 1022, in __call__
+    return self.registry.setdefault(key, self.createfunc())
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\orm\session.py", line 3300, in __call__
+    return self.class_(**local_kw)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask_sqlalchemy\__init__.py", line 137, in __init__
+    track_modifications = app.config['SQLALCHEMY_TRACK_MODIFICATIONS']
+KeyError: 'SQLALCHEMY_TRACK_MODIFICATIONS'
+2020-12-21 13:16:49,307 ERROR: Exception on /venues [GET] [in C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py:1891]
+Traceback (most recent call last):
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\util\_collections.py", line 1020, in __call__
+    return self.registry[key]
+KeyError: 20196
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "app.py", line 137, in venues
+    cities = Venue.query.distinct(Venue.city, Venue.state).order_by('state').all()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask_sqlalchemy\__init__.py", line 514, in __get__
+    return type.query_class(mapper, session=self.sa.session())
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\orm\scoping.py", line 78, in __call__
+    return self.registry()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\util\_collections.py", line 1022, in __call__
+    return self.registry.setdefault(key, self.createfunc())
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\orm\session.py", line 3300, in __call__
+    return self.class_(**local_kw)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask_sqlalchemy\__init__.py", line 137, in __init__
+    track_modifications = app.config['SQLALCHEMY_TRACK_MODIFICATIONS']
+KeyError: 'SQLALCHEMY_TRACK_MODIFICATIONS'
+2020-12-21 13:16:51,435 ERROR: Exception on /venues/create [GET] [in C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py:1891]
+Traceback (most recent call last):
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "app.py", line 298, in create_venue_form
+    form = VenueForm()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\wtforms\form.py", line 208, in __call__
+    return type.__call__(cls, *args, **kwargs)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask_wtf\form.py", line 87, in __init__
+    super(FlaskForm, self).__init__(formdata=formdata, **kwargs)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\wtforms\form.py", line 274, in __init__
+    self.process(formdata, obj, data=data, **kwargs)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\wtforms\form.py", line 131, in process
+    field.process(formdata)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\wtforms\csrf\core.py", line 43, in process
+    self.current_token = self.csrf_impl.generate_csrf_token(self)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask_wtf\csrf.py", line 139, in generate_csrf_token
+    return generate_csrf(
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask_wtf\csrf.py", line 33, in generate_csrf
+    secret_key = _get_config(
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask_wtf\csrf.py", line 128, in _get_config
+    raise RuntimeError(message)
+RuntimeError: A secret key is required to use CSRF.
+2020-12-21 13:17:16,852 ERROR: Exception on /venues [GET] [in C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py:1891]
+Traceback (most recent call last):
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\util\_collections.py", line 1020, in __call__
+    return self.registry[key]
+KeyError: 19712
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "app.py", line 137, in venues
+    cities = Venue.query.distinct(Venue.city, Venue.state).order_by('state').all()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask_sqlalchemy\__init__.py", line 514, in __get__
+    return type.query_class(mapper, session=self.sa.session())
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\orm\scoping.py", line 78, in __call__
+    return self.registry()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\util\_collections.py", line 1022, in __call__
+    return self.registry.setdefault(key, self.createfunc())
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\orm\session.py", line 3300, in __call__
+    return self.class_(**local_kw)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask_sqlalchemy\__init__.py", line 137, in __init__
+    track_modifications = app.config['SQLALCHEMY_TRACK_MODIFICATIONS']
+KeyError: 'SQLALCHEMY_TRACK_MODIFICATIONS'
+2020-12-21 13:18:55,633 ERROR: Exception on /venues [GET] [in C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py:1891]
+Traceback (most recent call last):
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\util\_collections.py", line 1020, in __call__
+    return self.registry[key]
+KeyError: 19540
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "app.py", line 137, in venues
+    cities = Venue.query.distinct(Venue.city, Venue.state).order_by('state').all()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask_sqlalchemy\__init__.py", line 514, in __get__
+    return type.query_class(mapper, session=self.sa.session())
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\orm\scoping.py", line 78, in __call__
+    return self.registry()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\util\_collections.py", line 1022, in __call__
+    return self.registry.setdefault(key, self.createfunc())
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\orm\session.py", line 3300, in __call__
+    return self.class_(**local_kw)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask_sqlalchemy\__init__.py", line 137, in __init__
+    track_modifications = app.config['SQLALCHEMY_TRACK_MODIFICATIONS']
+KeyError: 'SQLALCHEMY_TRACK_MODIFICATIONS'
+2020-12-21 13:19:00,120 ERROR: Exception on /venues [GET] [in C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py:1891]
+Traceback (most recent call last):
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\util\_collections.py", line 1020, in __call__
+    return self.registry[key]
+KeyError: 20400
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "app.py", line 137, in venues
+    cities = Venue.query.distinct(Venue.city, Venue.state).order_by('state').all()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask_sqlalchemy\__init__.py", line 514, in __get__
+    return type.query_class(mapper, session=self.sa.session())
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\orm\scoping.py", line 78, in __call__
+    return self.registry()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\util\_collections.py", line 1022, in __call__
+    return self.registry.setdefault(key, self.createfunc())
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\orm\session.py", line 3300, in __call__
+    return self.class_(**local_kw)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask_sqlalchemy\__init__.py", line 137, in __init__
+    track_modifications = app.config['SQLALCHEMY_TRACK_MODIFICATIONS']
+KeyError: 'SQLALCHEMY_TRACK_MODIFICATIONS'
+2020-12-21 13:19:10,555 INFO: errors [in app.py:711]
+2020-12-21 13:19:13,717 ERROR: Exception on /artists [GET] [in C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py:1891]
+Traceback (most recent call last):
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\util\_collections.py", line 1020, in __call__
+    return self.registry[key]
+KeyError: 17416
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "app.py", line 364, in artists
+    artists = Artist.query.order_by('name').all()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask_sqlalchemy\__init__.py", line 514, in __get__
+    return type.query_class(mapper, session=self.sa.session())
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\orm\scoping.py", line 78, in __call__
+    return self.registry()
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\util\_collections.py", line 1022, in __call__
+    return self.registry.setdefault(key, self.createfunc())
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\sqlalchemy\orm\session.py", line 3300, in __call__
+    return self.class_(**local_kw)
+  File "C:\Users\Statice\Coding\FSND\projects\01_fyyur\starter_code\env\lib\site-packages\flask_sqlalchemy\__init__.py", line 137, in __init__
+    track_modifications = app.config['SQLALCHEMY_TRACK_MODIFICATIONS']
+KeyError: 'SQLALCHEMY_TRACK_MODIFICATIONS'
