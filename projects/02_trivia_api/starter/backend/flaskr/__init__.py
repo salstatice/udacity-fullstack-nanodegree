@@ -16,7 +16,9 @@ def create_app(test_config=None):
   '''
   @TODO: Set up CORS. Allow '*' for origins. Delete the sample route after completing the TODOs
   '''
-  cors = CORS(app, RESOURCES={r"*/api/*": {"origins":'*'}})
+  CORS(app)
+  # Another way to do it:
+  # cors = CORS(app, RESOURCES={r"*/api/*": {"origins":'*'}})
 
   '''
   @TODO: Use the after_request decorator to set Access-Control-Allow
@@ -32,7 +34,15 @@ def create_app(test_config=None):
   Create an endpoint to handle GET requests 
   for all available categories.
   '''
+  @app.route('/categories', methods=['GET'])
+  def get_all_categories():
+    categories = Category.query.all()
+    formatted_categories = [category.format() for category in categories]
 
+    return jsonify({
+      'success': True,
+      'categories': formatted_categories
+    })
 
   '''
   @TODO: 
@@ -46,6 +56,26 @@ def create_app(test_config=None):
   ten questions per page and pagination at the bottom of the screen for three pages.
   Clicking on the page numbers should update the questions. 
   '''
+  @app.route('/questions', methods=['GET'])
+  def get_paginated_questions():
+    page = request.args.get('page', 1, type=int)
+    start = (page - 1) * QUESTIONS_PER_PAGE
+    end = start + QUESTIONS_PER_PAGE
+    questions = Question.query.all()
+    questions_count = Question.query.count()
+    formatted_questions = [question.format() for question in questions]
+
+    current_category = request.args.get('currentCategory', None)
+    categories = Category.query.all()
+    formatted_categories = [category.format() for category in categories]
+
+    return jsonify({
+      'success': True,
+      'questions': formatted_questions[start:end],
+      'total_questions': questions_count,
+      'categories': formatted_categories,
+      'current_category': current_category
+    })
 
   '''
   @TODO: 
