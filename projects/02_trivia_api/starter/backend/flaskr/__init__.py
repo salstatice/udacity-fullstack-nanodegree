@@ -115,7 +115,36 @@ def create_app(test_config=None):
   categories in the left column will cause only questions of that 
   category to be shown. 
   '''
+  @app.route('/questions', methods=['POST'])
+  def create_question():
+    body = request.get_json()
 
+    new_question = body.get('question', None)
+    new_answer = body.get('answer', None)
+    new_difficuly = body.get('difficulty', None)
+    new_category = body.get('category', None)
+    search_term = body.get('searchTerm', None)
+    get_by_category = body.get('getGatergory', None)
+
+    try:
+      if search_term:
+        return jsonsify({
+          'search': 'something'
+        })
+      elif get_by_category:
+        return jsonsify({
+          'question': []
+        })
+      else:
+        question = Question(question=new_question, answer=new_answer, difficulty=new_difficuly, category=new_category)
+        question.insert()
+        new_id = question.id
+        return jsonify({
+          'success': True,
+          'question_id': new_id
+        })
+    except:
+      abort(422)
 
   '''
   @TODO: 
