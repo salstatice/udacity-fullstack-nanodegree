@@ -76,13 +76,29 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data['error'], 404)
         self.assertEqual(data['message'], 'Resource not found')
 
-    def test_get_all_categories(self):
+    # Test get list of categories
+
+    def test_get_categories_list(self):
         res = self.client().get('/categories')
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
         self.assertTrue(len(data['categories']))
+        self.assertEqual(data['categories']['2'],'Art')
+
+    # waiting on mentors response
+
+    # def test_get_categories_list_with_bad_endpoint(self):
+    #     res = self.client().get('/categories/asdfasdf')
+    #     data = json.loads(res.data)
+
+    #     self.assertEqual(res.status_code, 405)
+    #     self.assertEqual(data['success'], False)
+    #     self.assertEqual(data['error'], 405)
+    #     self.assertEqual(data['message'], 'Methods not found')
+
+    # Test delete question
 
     def test_delete_existing_question(self):
         # add a new question to use for deletion

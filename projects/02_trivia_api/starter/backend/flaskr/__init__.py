@@ -87,14 +87,19 @@ def create_app(test_config=None):
   for all available categories.
   '''
   @app.route('/categories', methods=['GET'])
-  def get_all_categories():
-    categories = Category.query.all()
-    formatted_categories = {category.id:category.type for category in categories}
+  def get_categories_list():
+    try:
+      categories = Category.query.all()
+      formatted_categories = {category.id:category.type for category in categories}
 
-    return jsonify({
-      'success': True,
-      'categories': formatted_categories
-    })
+      return jsonify({
+        'success': True,
+        'categories': formatted_categories
+      })
+    except:
+      abort(422)
+    finally:
+      db.session.close()
 
   '''
   @TODO: 
@@ -107,9 +112,9 @@ def create_app(test_config=None):
   def delete_questions(question_id):
     try:
       question = Question.query.filter(Question.id == question_id).one_or_none()
-
       if question is None:
         abort(404)
+      
       question.delete()
       return jsonify({
         'success': True,
@@ -294,6 +299,14 @@ def create_app(test_config=None):
       'error': 404,
       'message': 'Resource not found'
     }), 404
+
+  @app.errorhandler(405)
+  def methods_not_found(error):
+    return jsonify({
+      'success': False,
+      'error': 405,
+      'message': 'Methods not found'
+    }), 405
 
   @app.errorhandler(422)
   def unprocessable(error):
