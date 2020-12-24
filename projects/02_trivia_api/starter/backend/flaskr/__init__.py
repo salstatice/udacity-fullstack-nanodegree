@@ -3,6 +3,7 @@ from flask import Flask, request, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 import random
+from sqlalchemy import func
 
 from models import setup_db, db, Question, Category
 
@@ -37,7 +38,7 @@ def create_app(test_config=None):
   @app.route('/categories', methods=['GET'])
   def get_all_categories():
     categories = Category.query.all()
-    formatted_categories = [category.format() for category in categories]
+    formatted_categories = {category.id:category.type for category in categories}
 
     return jsonify({
       'success': True,
@@ -67,7 +68,7 @@ def create_app(test_config=None):
 
     current_category = request.args.get('currentCategory', None)
     categories = Category.query.all()
-    formatted_categories = [category.format() for category in categories]
+    formatted_categories = {category.id: category.type for category in categories}
 
     return jsonify({
       'success': True,
@@ -205,6 +206,55 @@ def create_app(test_config=None):
   one question at a time is displayed, the user is allowed to answer
   and shown whether they were correct or not. 
   '''
+  @app.route('/quizzes', methods=['POST'])
+  def get_next_question():
+    body = request.get_json()
+
+    previous_questions = body.get('previous_question', [])
+    quiz_category = body.get('quiz_category', {'id': 0})
+
+    try:
+      # for all catergories
+      if quiz_category['id'] == 0 :
+        if not previous_questions:
+          question = Question.query.order_by(func.random()).first()
+        else:
+          question = Question.query.filter(Question.id.notin_(previous_questions)).order_by(func.random()).first()
+        
+        # if database still have more unused questions
+        if question:
+          return jsonify({
+            'success': True,
+            'question': question.format()
+          })
+        else:
+          return jsonify({
+            'success': True,
+            'question': None
+          })
+      # for one catergory
+      else:
+        if not previous_questions:
+          question = Question.query.filter(Question.category == quiz_category['id']).order_by(func.random()).first()
+        else:
+          question = Question.query.filter(Question.category == quiz_category['id']).filter(Question.id.notin_(previous_questions)).order_by(func.random()).first()
+        
+        # if database still have more unused questions
+        if question:
+          return jsonify({
+            'success': True,
+            'question': question.format()
+          })
+        else:
+          return jsonify({
+            'success': True,
+            'question': None
+          })
+    except:
+      abort(422)
+    finally:
+      db.session.close()
+
 
   '''
   @TODO: 
