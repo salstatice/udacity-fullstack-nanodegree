@@ -115,7 +115,6 @@ def create_app(test_config=None):
   the form will clear and the question will appear at the end of the last page
   of the questions list in the "List" tab.  
   '''
-
   '''
   @TODO: 
   Create a POST endpoint to get questions based on a search term. 
@@ -125,15 +124,6 @@ def create_app(test_config=None):
   TEST: Search by any phrase. The questions list will update to include 
   only question that include that string within their question. 
   Try using the word "title" to start. 
-  '''
-  # waiting on clarification from mentors
-  '''
-  @TODO: 
-  Create a GET endpoint to get questions based on category. 
-
-  TEST: In the "List" tab / main screen, clicking on one of the 
-  categories in the left column will cause only questions of that 
-  category to be shown. 
   '''
   @app.route('/questions', methods=['POST'])
   def create_question():
@@ -170,6 +160,36 @@ def create_app(test_config=None):
         })
     except:
       db.session.rollback()
+      abort(422)
+    finally:
+      db.session.close()
+  
+  '''
+  @TODO: 
+  Create a GET endpoint to get questions based on category. 
+
+  TEST: In the "List" tab / main screen, clicking on one of the 
+  categories in the left column will cause only questions of that 
+  category to be shown. 
+  '''
+  @app.route('/categories/<int:category_id>/questions', methods=['GET'])
+  def get_quesions_by_categories(category_id):
+    try:
+      questions = Question.query.filter(Question.category == category_id).all()
+      questions_count = Question.query.filter(Question.category == category_id).count()
+      formatted_questions = [question.format() for question in questions]
+
+      categories = Category.query.all()
+      formatted_categories = [category.format() for category in categories]
+
+      return jsonify({
+        'success': True,
+        'questions': ['one'],
+        'total_questions': 3,
+        'categories': formatted_categories,
+        'current_category': category_id
+      })
+    except:
       abort(422)
     finally:
       db.session.close()
