@@ -137,6 +137,11 @@ def create_app(test_config=None):
   '''
   @app.route('/questions', methods=['POST'])
   def create_question():
+    '''
+    This endpoint handle two functions: 
+    1) Add a new questions
+    2) If there is a search_term, perform a search instead
+    '''
     body = request.get_json()
 
     new_question = body.get('question', None)
@@ -144,16 +149,16 @@ def create_app(test_config=None):
     new_difficuly = body.get('difficulty', None)
     new_category = body.get('category', None)
     search_term = body.get('searchTerm', None)
-    get_by_category = body.get('getGatergory', None)
 
     try:
       if search_term:
-        return jsonsify({
-          'search': 'something'
-        })
-      elif get_by_category:
-        return jsonsify({
-          'question': []
+        questions = Question.query.filter(Question.question.ilike('%{}%'.format(search_term))).order_by(Question.id).all()
+        total_questions = Question.query.filter(Question.question.ilike('%{}%'.format(search_term))).order_by(Question.id).count()
+        formatted_questions = [question.format() for question in questions]
+        return jsonify({
+          'success': True,
+          'questions': formatted_questions,
+          'total_questions': total_questions
         })
       else:
         question = Question(question=new_question, answer=new_answer, difficulty=new_difficuly, category=new_category)
@@ -164,7 +169,10 @@ def create_app(test_config=None):
           'question_id': new_id
         })
     except:
+      db.session.rollback()
       abort(422)
+    finally:
+      db.session.close()
 
   '''
   @TODO: 
