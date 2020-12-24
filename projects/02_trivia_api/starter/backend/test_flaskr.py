@@ -68,12 +68,21 @@ class TriviaTestCase(unittest.TestCase):
         add_data = json.loads(add_res.data)
         # test deletion
         ques_id = str(add_data['question_id'])
-        res = self.client().delete('/questions/'+ques_id )
+        res = self.client().delete('/questions/'+ ques_id )
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
         self.assertEqual(data['deleted'], add_data['question_id'])
+
+    def test_404_for_delele_non_existing_question(self):
+        res = self.client().delete('/questions/10000' )
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 404)
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['message'], 'Resource not found')
+        
 
     def test_add_new_question(self):
         res = self.client().post('/questions', json=self.new_question)

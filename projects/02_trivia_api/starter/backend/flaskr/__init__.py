@@ -90,18 +90,18 @@ def create_app(test_config=None):
       question = Question.query.filter(Question.id == question_id).one_or_none()
 
       if question is None:
-        abort(400)
-
+        abort(404)
       question.delete()
       return jsonify({
         'success': True,
-        'deleted': question_id
+        'deleted': question_id,
       })
-    except:
-      db.seesion.rollback()
-      return jsonify({
-        'success': False
-      })
+    except Exception as e:
+      if e.code == 404:
+        abort(404)
+      else:
+        db.session.rollback()
+        abort(422)
     finally:
       db.session.close()
 
@@ -183,7 +183,30 @@ def create_app(test_config=None):
   Create error handlers for all expected errors 
   including 404 and 422. 
   '''
-  
+  @app.errorhandler(400)
+  def bad_request(error):
+    return jsonify({
+      'success': False,
+      'error': 400,
+      'message': 'Bad request'
+    }), 400
+
+  @app.errorhandler(404)
+  def resource_not_found(error):
+    return jsonify({
+      'success': False,
+      'error': 404,
+      'message': 'Resource not found'
+    }), 404
+
+  @app.errorhandler(422)
+  def unprocessable(error):
+    return jsonify({
+      'success': False,
+      'error': 422,
+      'message': 'Unprocessable'
+    }), 422
+
   return app
 
     
