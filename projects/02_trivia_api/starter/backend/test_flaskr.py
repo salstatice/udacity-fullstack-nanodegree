@@ -105,6 +105,28 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data['error'], 405)
         self.assertEqual(data['message'], 'Methods not found')
 
+    # Test get questions by categories
+
+    def test_get_questions_by_categories(self):
+        res = self.client().get('/categories/1/questions')
+        data = json.loads(res.data)
+        
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertTrue(len(data['questions']))
+        self.assertEqual(data['total_questions'], 3)
+        self.assertEqual(data['current_category'], 1)
+
+    def test_404_get_questions_by_invalid_categories(self):
+        res = self.client().get('/categories/1000/questions')
+        data = json.loads(res.data)
+        
+        self.assertEqual(res.status_code, 404)
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['error'], 404)
+        self.assertEqual(data['message'], 'Resource not found')
+
+
     # Test delete question
 
     def test_delete_existing_question(self):
@@ -182,26 +204,6 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(len(data['questions']), 0)
         self.assertEqual(data['total_questions'], 0)    
 
-    # Test get questions by categories
-
-    def test_get_questions_by_categories(self):
-        res = self.client().get('/categories/1/questions')
-        data = json.loads(res.data)
-        
-        self.assertEqual(res.status_code, 200)
-        self.assertEqual(data['success'], True)
-        self.assertTrue(len(data['questions']))
-        self.assertEqual(data['total_questions'], 3)
-        self.assertEqual(data['current_category'], 1)
-
-    def test_404_get_questions_by_invalid_categories(self):
-        res = self.client().get('/categories/1000/questions')
-        data = json.loads(res.data)
-        
-        self.assertEqual(res.status_code, 404)
-        self.assertEqual(data['success'], False)
-        self.assertEqual(data['error'], 404)
-        self.assertEqual(data['message'], 'Resource not found')
 
     # tests for POST '/quizzes'
     

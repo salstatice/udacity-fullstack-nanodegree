@@ -100,6 +100,46 @@ def create_app(test_config=None):
       abort(422)
     finally:
       db.session.close()
+      
+  '''
+  @TODO: 
+  Create a GET endpoint to get questions based on category. 
+
+  TEST: In the "List" tab / main screen, clicking on one of the 
+  categories in the left column will cause only questions of that 
+  category to be shown. 
+  '''
+  @app.route('/categories/<int:category_id>/questions', methods=['GET'])
+  def get_quesions_by_categories(category_id):
+    try:
+      # check if category exists
+      category = Category.query.filter(Category.id == category_id).one_or_none()
+      if category is None:
+        abort(404)
+      categories = Category.query.all()
+      formatted_categories = [category.format() for category in categories]
+      
+      questions = Question.query.filter(Question.category == category_id).all()
+      questions_count = Question.query.filter(Question.category == category_id).count()
+      if questions_count == 0:
+        formmatted_questions = []
+      else:
+        formatted_questions = [question.format() for question in questions]
+
+      return jsonify({
+        'success': True,
+        'questions': formatted_questions,
+        'total_questions': questions_count,
+        'categories': formatted_categories,
+        'current_category': category_id
+      })
+    except Exception as e:
+      if e.code == 404:
+        abort(404)
+      else:
+        abort(422)
+    finally:
+      db.session.close()
 
   '''
   @TODO: 
@@ -200,45 +240,6 @@ def create_app(test_config=None):
     finally:
       db.session.close()
   
-  '''
-  @TODO: 
-  Create a GET endpoint to get questions based on category. 
-
-  TEST: In the "List" tab / main screen, clicking on one of the 
-  categories in the left column will cause only questions of that 
-  category to be shown. 
-  '''
-  @app.route('/categories/<int:category_id>/questions', methods=['GET'])
-  def get_quesions_by_categories(category_id):
-    try:
-      # check if category exists
-      category = Category.query.filter(Category.id == category_id).one_or_none()
-      if category is None:
-        abort(404)
-      categories = Category.query.all()
-      formatted_categories = [category.format() for category in categories]
-      
-      questions = Question.query.filter(Question.category == category_id).all()
-      questions_count = Question.query.filter(Question.category == category_id).count()
-      if questions_count == 0:
-        formmatted_questions = []
-      else:
-        formatted_questions = [question.format() for question in questions]
-
-      return jsonify({
-        'success': True,
-        'questions': formatted_questions,
-        'total_questions': questions_count,
-        'categories': formatted_categories,
-        'current_category': category_id
-      })
-    except Exception as e:
-      if e.code == 404:
-        abort(404)
-      else:
-        abort(422)
-    finally:
-      db.session.close()
 
   '''
   @TODO: 
