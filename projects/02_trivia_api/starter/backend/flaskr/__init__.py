@@ -100,7 +100,7 @@ def create_app(test_config=None):
       abort(422)
     finally:
       db.session.close()
-      
+
   '''
   @TODO: 
   Create a GET endpoint to get questions based on category. 
@@ -116,8 +116,6 @@ def create_app(test_config=None):
       category = Category.query.filter(Category.id == category_id).one_or_none()
       if category is None:
         abort(404)
-      categories = Category.query.all()
-      formatted_categories = [category.format() for category in categories]
       
       questions = Question.query.filter(Question.category == category_id).all()
       questions_count = Question.query.filter(Question.category == category_id).count()
@@ -130,7 +128,6 @@ def create_app(test_config=None):
         'success': True,
         'questions': formatted_questions,
         'total_questions': questions_count,
-        'categories': formatted_categories,
         'current_category': category_id
       })
     except Exception as e:
