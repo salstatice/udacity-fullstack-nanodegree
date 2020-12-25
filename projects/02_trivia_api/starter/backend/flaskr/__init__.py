@@ -157,6 +157,8 @@ def create_app(test_config=None):
     2) If there is a search_term, perform a search instead
     '''
     body = request.get_json()
+    if body is None:
+      abort(400)
 
     new_question = body.get('question', None)
     new_answer = body.get('answer', None)
@@ -165,16 +167,21 @@ def create_app(test_config=None):
     search_term = body.get('searchTerm', None)
 
     try:
+      # perform search
       if search_term:
         questions = Question.query.filter(Question.question.ilike('%{}%'.format(search_term))).order_by(Question.id).all()
         total_questions = Question.query.filter(Question.question.ilike('%{}%'.format(search_term))).order_by(Question.id).count()
-        formatted_questions = [question.format() for question in questions]
+        if total_questions == 0:
+          formatted_questions = []
+        else:
+          formatted_questions = [question.format() for question in questions]
         return jsonify({
           'success': True,
           'questions': formatted_questions,
           'total_questions': total_questions
         })
-      else:
+      # post a new question
+      elif new_question and new_answer and new_difficuly:
         question = Question(question=new_question, answer=new_answer, difficulty=new_difficuly, category=new_category)
         question.insert()
         new_id = question.id
@@ -182,9 +189,14 @@ def create_app(test_config=None):
           'success': True,
           'question_id': new_id
         })
-    except:
-      db.session.rollback()
-      abort(422)
+      else:
+        abort(400)
+    except Exception as e:
+      if e.code == 400:
+        abort(400)
+      else:
+        db.session.rollback()
+        abort(422)
     finally:
       db.session.close()
   
@@ -199,22 +211,32 @@ def create_app(test_config=None):
   @app.route('/categories/<int:category_id>/questions', methods=['GET'])
   def get_quesions_by_categories(category_id):
     try:
-      questions = Question.query.filter(Question.category == category_id).all()
-      questions_count = Question.query.filter(Question.category == category_id).count()
-      formatted_questions = [question.format() for question in questions]
-
+      # check if category exists
+      category = Category.query.filter(Category.id == category_id).one_or_none()
+      if category is None:
+        abort(404)
       categories = Category.query.all()
       formatted_categories = [category.format() for category in categories]
+      
+      questions = Question.query.filter(Question.category == category_id).all()
+      questions_count = Question.query.filter(Question.category == category_id).count()
+      if questions_count == 0:
+        formmatted_questions = []
+      else:
+        formatted_questions = [question.format() for question in questions]
 
       return jsonify({
         'success': True,
-        'questions': ['one'],
-        'total_questions': 3,
+        'questions': formatted_questions,
+        'total_questions': questions_count,
         'categories': formatted_categories,
         'current_category': category_id
       })
-    except:
-      abort(422)
+    except Exception as e:
+      if e.code == 404:
+        abort(404)
+      else:
+        abort(422)
     finally:
       db.session.close()
 
@@ -232,8 +254,10 @@ def create_app(test_config=None):
   @app.route('/quizzes', methods=['POST'])
   def get_next_question():
     body = request.get_json()
+    if body is None:
+      abort(400)
 
-    previous_questions = body.get('previous_question', [])
+    previous_questions = body.get('previous_questions', [])
     quiz_category = body.get('quiz_category', {'id': 0})
 
     try:
