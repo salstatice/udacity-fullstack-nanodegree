@@ -15,7 +15,7 @@ class TriviaTestCase(unittest.TestCase):
         self.app = create_app()
         self.client = self.app.test_client
         self.database_name = "trivia_test"
-        self.databause_user = ""
+        self.databause_user = "postgres"
         self.database_path = "postgres://{}@{}/{}".format(self.databause_user, 'localhost:5432', self.database_name)
         setup_db(self.app, self.database_path)
 
@@ -207,7 +207,7 @@ class TriviaTestCase(unittest.TestCase):
     
     def test_play_quizzes_first_question_all_categories(self):
         res = self.client().post('/quizzes', json={
-            'previous_question': None,
+            'previous_questions': None,
             'quiz_category': {'type': None, 'id': 0}
             })
         data = json.loads(res.data)
@@ -218,7 +218,7 @@ class TriviaTestCase(unittest.TestCase):
 
     def test_play_quizzes_next_question_all_categories(self):
         res = self.client().post('/quizzes', json={
-            'previous_question': [10, 15, 20],
+            'previous_questions': [10, 15, 20],
             'quiz_category': {'type': None, 'id': 0}
             })
         data = json.loads(res.data)
@@ -229,7 +229,7 @@ class TriviaTestCase(unittest.TestCase):
     
     def test_play_quizzes_with_no_more_question_all_categories(self):
         res = self.client().post('/quizzes', json={
-            'previous_question': [5,9,2,4,6,10,11,12,13,14,15,16,17,18,19,20,21,22,23],
+            'previous_questions': [5,9,2,4,6,10,11,12,13,14,15,16,17,18,19,20,21,22,23],
             'quiz_category': {'type': None, 'id': 0}
             })
         data = json.loads(res.data)
@@ -240,7 +240,7 @@ class TriviaTestCase(unittest.TestCase):
 
     def test_play_quizzes_first_question_one_categories(self):
         res = self.client().post('/quizzes', json={
-            'previous_question': [],
+            'previous_questions': [],
             'quiz_category': {'type': 'Art', 'id': 2}
             })
         data = json.loads(res.data)
@@ -251,7 +251,7 @@ class TriviaTestCase(unittest.TestCase):
 
     def test_play_quizzes_next_question_one_categories(self):
         res = self.client().post('/quizzes', json={
-            'previous_question': [16, 17],
+            'previous_questions': [16, 17],
             'quiz_category': {'type': 'Art', 'id': 2}
             })
         data = json.loads(res.data)
@@ -262,7 +262,7 @@ class TriviaTestCase(unittest.TestCase):
     
     def test_play_quizzes_with_no_more_question_one_categories(self):
         res = self.client().post('/quizzes', json={
-            'previous_question': [16, 17, 18, 19],
+            'previous_questions': [16, 17, 18, 19],
             'quiz_category': {'type': 'Art', 'id': 2}
             })
         data = json.loads(res.data)
