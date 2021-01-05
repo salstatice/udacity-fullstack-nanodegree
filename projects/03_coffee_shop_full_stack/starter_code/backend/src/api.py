@@ -16,7 +16,7 @@ CORS(app)
 !! NOTE THIS WILL DROP ALL RECORDS AND START YOUR DB FROM SCRATCH
 !! NOTE THIS MUST BE UNCOMMENTED ON FIRST RUN
 '''
-# db_drop_and_create_all()
+db_drop_and_create_all()
 
 ## ROUTES
 '''
@@ -30,8 +30,13 @@ CORS(app)
 @app.route('/drinks', methods=['GET'])
 def get_short_drink_recipe():
     try:
+        drinks = Drink.query.all()
+        
+        formatted_drinks = [drink.short() for drink in drinks]
+        
         return jsonify({
-            'success': True
+            'success': True,
+            'drinks': formatted_drinks
         })
     except:
         abort(422)
@@ -48,8 +53,11 @@ def get_short_drink_recipe():
 @requires_auth('get:drinks-detail')
 def get_long_drink_recipe(payload):
     try:
+        drinks = Drink.query.all()
+        formatted_drinks = [drink.long() for drink in drinks]
         return jsonify({
-            'success': True
+            'success': True,
+            'drinks': formatted_drinks
         })
     except:
         abort(422)
@@ -66,12 +74,30 @@ def get_long_drink_recipe(payload):
 @app.route('/drinks', methods=['POST'])
 @requires_auth('post:drinks')
 def add_new_drink(payload):
+    body = request.get_json()
+    if body is None:
+      abort(400)
+    
+    req_title = body.get('title')
+    req_recipe = body.get('recipe')
+    
     try:
+        ## abort 400 bad request if title is duplicated
+        if Drink.query.filter(Drink.title==req_title).all():
+            abort(400)
+        
+        drink = Drink(title=req_title, recipe=json.dumps(req_recipe))
+        drink.insert()
+        
         return jsonify({
-            'success': True
+            'success': True,
+            'drinks': [drink.long()]
         })
-    except:
-        abort(422)
+    except Exception as e:
+        if e.code == 400:
+            abort(400)
+        else:
+            abort(422)
 
 '''
 @TODO implement endpoint
@@ -87,9 +113,25 @@ def add_new_drink(payload):
 @app.route('/drinks/<int:id>', methods=['PATCH'])
 @requires_auth('patch:drinks')
 def edit_drink_recipe(payload, id):
+    body = request.get_json()
+    if body is None:
+        abort(400)
+
     try:
+        drink = Drink.query.filter(Drink.id == id).one_or_none()
+        if not drink:
+            abort(404)
+
+        if body.get('title'):
+            drink.title = body.get('title')
+        elif body.get('recipe'):
+            drink.recipe = json.dumps(body.get('recipe'))
+        else:
+            abort(400)
+
         return jsonify({
-            'success': True
+            'success': True,
+            'drinks': [drink.long()]
         })
     except Exception as e:
         if e.code == 404:
@@ -111,6 +153,12 @@ def edit_drink_recipe(payload, id):
 @requires_auth('delete:drinks')
 def delete_drink(payload, id):
     try:
+        drink = Drink.query.filter(Drink.id == id).one_or_none()
+        if not drink:
+            abort(404)
+        
+        drink.delete()
+
         return jsonify({
             'success': True
         })
@@ -142,6 +190,13 @@ def unprocessable(error):
                     }), 404
 
 '''
+@app.errorhandler(400)
+def bad_request(error):
+    return jsonify({
+      'success': False,
+      'error': 400,
+      'message': 'bad request'
+    }), 400
 
 '''
 @TODO implement error handler for 404
