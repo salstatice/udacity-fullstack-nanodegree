@@ -63,7 +63,15 @@ def get_long_drink_recipe(payload):
     returns status code 200 and json {"success": True, "drinks": drink} where drink an array containing only the newly created drink
         or appropriate status code indicating reason for failure
 '''
-
+@app.route('/drinks', methods=['POST'])
+@requires_auth('post:drinks')
+def add_new_drink(payload):
+    try:
+        return jsonify({
+            'success': True
+        })
+    except:
+        abort(422)
 
 '''
 @TODO implement endpoint
@@ -76,7 +84,18 @@ def get_long_drink_recipe(payload):
     returns status code 200 and json {"success": True, "drinks": drink} where drink an array containing only the updated drink
         or appropriate status code indicating reason for failure
 '''
-
+@app.route('/drinks/<int:id>', methods=['PATCH'])
+@requires_auth('patch:drinks')
+def edit_drink_recipe(payload, id):
+    try:
+        return jsonify({
+            'success': True
+        })
+    except Exception as e:
+        if e.code == 404:
+            abort(404)
+        else:
+            abort(422)
 
 '''
 @TODO implement endpoint
@@ -88,7 +107,18 @@ def get_long_drink_recipe(payload):
     returns status code 200 and json {"success": True, "delete": id} where id is the id of the deleted record
         or appropriate status code indicating reason for failure
 '''
-
+@app.route('/drinks/<int:id>', methods=['DELETE'])
+@requires_auth('delete:drinks')
+def delete_drink(payload, id):
+    try:
+        return jsonify({
+            'success': True
+        })
+    except Exception as e:
+        if e.code == 404:
+            abort(404)
+        else:
+            abort(422)
 
 ## Error Handling
 '''
@@ -117,7 +147,13 @@ def unprocessable(error):
 @TODO implement error handler for 404
     error handler should conform to general task above 
 '''
-
+@app.errorhandler(404)
+def resource_not_found(error):
+    return jsonify({
+                "success": False, 
+                "error": 404,
+                "message": "resource not found"
+                }), 404
 
 '''
 @TODO implement error handler for AuthError
