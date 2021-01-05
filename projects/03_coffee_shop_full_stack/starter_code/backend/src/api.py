@@ -27,7 +27,14 @@ CORS(app)
     returns status code 200 and json {"success": True, "drinks": drinks} where drinks is the list of drinks
         or appropriate status code indicating reason for failure
 '''
-
+@app.route('/drinks', methods=['GET'])
+def get_short_drink_recipe():
+    try:
+        return jsonify({
+            'success': True
+        })
+    except:
+        abort(422)
 
 '''
 @TODO implement endpoint
@@ -37,7 +44,15 @@ CORS(app)
     returns status code 200 and json {"success": True, "drinks": drinks} where drinks is the list of drinks
         or appropriate status code indicating reason for failure
 '''
-
+@app.route('/drinks-detail', methods=['GET'])
+@requires_auth('get:drinks-detail')
+def get_long_drink_recipe(payload):
+    try:
+        return jsonify({
+            'success': True
+        })
+    except:
+        abort(422)
 
 '''
 @TODO implement endpoint
@@ -108,3 +123,6 @@ def unprocessable(error):
 @TODO implement error handler for AuthError
     error handler should conform to general task above 
 '''
+@app.errorhandler(AuthError)
+def auth_error(e):
+    return jsonify(e.error), e.status_code
